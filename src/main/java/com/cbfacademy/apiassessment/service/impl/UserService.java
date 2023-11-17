@@ -25,5 +25,10 @@ public class UserService implements PersonService {
     public List<User> getAllUsers() {
         return personDAO.readFile();
     }
+
+    @Override
+    public void createUser(User user) {
+        personDAO.save(user);
+    }
     
 }

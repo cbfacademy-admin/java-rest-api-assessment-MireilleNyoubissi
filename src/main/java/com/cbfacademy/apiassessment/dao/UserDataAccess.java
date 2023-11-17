@@ -1,7 +1,10 @@
 package com.cbfacademy.apiassessment.dao;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +43,32 @@ public class UserDataAccess implements PersonDAO {
         }
         System.out.println(dbUser);
         return dbUser;
+    }
+
+
+    @Override
+    public void save(User user) {
+        List<User> updateListOfUsers = new ArrayList<>();
+        List<User> readUserFromFile = readFile();
+
+        try (
+            FileWriter writer = new FileWriter(file.getAbsolutePath());
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+            ) {
+            if (readUserFromFile != null) {
+                updateListOfUsers = readUserFromFile;
+            }
+
+
+            updateListOfUsers.add(user);
+    
+
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            gson.toJson(updateListOfUsers, bufferedWriter);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     
