@@ -1,6 +1,9 @@
 package com.cbfacademy.apiassessment.dao;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
 import com.cbfacademy.apiassessment.model.User;
 
 
@@ -19,5 +22,12 @@ public interface PersonDAO {
      * @param user
      */
     void save(User user);
+
+    /**
+     * Read JSON file by User id and return the user.
+     * @param userId
+     * @return user
+     */
+    Optional<User> readFileById(UUID userId);
 
 }
