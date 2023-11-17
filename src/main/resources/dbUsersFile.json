@@ -1,1 +1,19 @@
-[{"username": "Martine","age": 23,"email": "martine@gmail.com"}]
+[
+  {
+    "username": "Martine",
+    "email": "martine@gmail.com",
+    "age": 23
+  },
+  {
+    "userId": "9a486661-bc55-4fe8-a13e-c2abc82a6094",
+    "username": "Hiu",
+    "email": "hui@gmail.com",
+    "age": 17
+  },
+  {
+    "userId": "27e61a6c-9b63-4c11-8648-d766adbbc301",
+    "username": "Marley",
+    "email": "Marley@gmail.com",
+    "age": 22
+  }
+]
