@@ -7,6 +7,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.stereotype.Repository;
 
@@ -58,10 +60,7 @@ public class UserDataAccess implements PersonDAO {
             if (readUserFromFile != null) {
                 updateListOfUsers = readUserFromFile;
             }
-
-
             updateListOfUsers.add(user);
-    
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
             gson.toJson(updateListOfUsers, bufferedWriter);
@@ -69,6 +68,16 @@ public class UserDataAccess implements PersonDAO {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    @Override
+    public Optional<User> readFileById(UUID userId) {
+        List<User> dbUser = readFile();
+
+        return dbUser.stream()
+                .filter(user -> user.getUserId().equals(userId))
+                .findFirst();
     }
 
     
