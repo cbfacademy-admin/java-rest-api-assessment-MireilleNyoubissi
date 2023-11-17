@@ -14,4 +14,10 @@ public interface PersonDAO {
      */
     List<User> readFile();
 
+    /**
+     * Add and save user in the JSON file.
+     * @param user
+     */
+    void save(User user);
+
 }
