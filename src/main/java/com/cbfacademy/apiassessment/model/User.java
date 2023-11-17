@@ -1,4 +1,4 @@
-package com.cbfacademy.apiassessment.payload;
+package com.cbfacademy.apiassessment.model;
 
 import java.io.Serializable;
 import java.util.UUID;
@@ -22,7 +22,7 @@ public class User implements Serializable{
         this.age = age;
     }
 
-    //adding getters and setters
+    //adding getters
    
     public UUID getUserId() {
         return userId;
