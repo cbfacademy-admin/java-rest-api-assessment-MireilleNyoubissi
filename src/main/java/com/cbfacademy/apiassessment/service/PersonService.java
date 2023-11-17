@@ -2,6 +2,8 @@ package com.cbfacademy.apiassessment.service;
 
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import com.cbfacademy.apiassessment.model.User;
 
 /**
@@ -19,7 +21,13 @@ public interface PersonService {
      * Create a user
      * @param user
      */
-
     void createUser(User user);
-    
+
+    /**
+     * Get a user by id
+     * @param userId
+     * @return user
+     */
+    Optional <User> getUserById(UUID userId);
+
 }
