@@ -1,10 +1,5 @@
 [
   {
-    "username": "Martine",
-    "email": "martine@gmail.com",
-    "age": 23
-  },
-  {
     "userId": "9a486661-bc55-4fe8-a13e-c2abc82a6094",
     "username": "Hiu",
     "email": "hui@gmail.com",
@@ -12,6 +7,12 @@
   },
   {
     "userId": "27e61a6c-9b63-4c11-8648-d766adbbc301",
+    "username": "Marley",
+    "email": "Marley@gmail.com",
+    "age": 22
+  },
+  {
+    "userId": "0bdf6d23-b63f-4859-8f87-983d83c05414",
     "username": "Marley",
     "email": "Marley@gmail.com",
     "age": 22
