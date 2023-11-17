@@ -1,12 +1,11 @@
 package com.cbfacademy.apiassessment.dao;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.util.ResourceUtils;
+import org.springframework.stereotype.Repository;
 
 import com.cbfacademy.apiassessment.model.User;
 import com.google.gson.Gson;
@@ -18,9 +17,11 @@ import com.google.gson.stream.JsonReader;
 /**
  * users data access.
  */
+@Repository("userDAO") // need to be instantiated as a beans
 public class UserDataAccess implements PersonDAO {
 
-    File file = new File("src/main/resources/dbUsersFile");
+    File file = new File("src/main/resources/dbUsersFile.json");
+
 
     @Override
     public List<User> readFile() {
