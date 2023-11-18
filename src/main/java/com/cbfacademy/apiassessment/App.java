@@ -57,8 +57,8 @@ public class App {
 
 	//Get a user by its id
 	@GetMapping(path = "{id}")
-	public Optional<User> getUserById(@PathVariable("id") UUID userId) {
-		return userService.getUserById(userId);
+	public ResponseEntity<Optional<User>> getUserById(@PathVariable("id") UUID userId) {
+		return ResponseEntity.ok(userService.getUserById(userId));
 	}
 
 	@DeleteMapping(path = "{id}")
