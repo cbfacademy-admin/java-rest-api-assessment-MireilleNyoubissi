@@ -24,6 +24,7 @@ import java.util.UUID;
 import com.cbfacademy.apiassessment.dto.NewUserDto;
 import com.cbfacademy.apiassessment.exceptions.AgeBadRangeException;
 import com.cbfacademy.apiassessment.exceptions.BadEmailAddressException;
+import com.cbfacademy.apiassessment.exceptions.UserNotFoundException;
 import com.cbfacademy.apiassessment.exceptions.UsernameBadLengthException;
 import com.cbfacademy.apiassessment.model.User;
 
@@ -70,7 +71,12 @@ public class App {
 	//Get a user by its id
 	@GetMapping(path = "{id}")
 	public ResponseEntity<Optional<User>> getUserById(@PathVariable("id") UUID userId) {
-		return ResponseEntity.ok(userService.getUserById(userId));
+		Optional<User> user = userService.getUserById(userId);
+		System.out.println(user.isPresent());
+        if (!user.isPresent()) {
+            throw new UserNotFoundException(userId.toString());
+        }
+		return ResponseEntity.ok(user);
 	}
 
 	@DeleteMapping(path = "{id}")
