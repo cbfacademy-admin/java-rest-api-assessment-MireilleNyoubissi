@@ -83,4 +83,22 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
         return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * Customized the error response structure for the user bad username length exception to return a status code 400 bad request.
+     * @param ex
+     * @param request
+     * @return
+     * @throws UsernameBadLengthException
+     */
+    @ExceptionHandler(value = UsernameBadLengthException.class)
+    public final ResponseEntity<ErrorDetails> handleUserNameBadLengthException(UsernameBadLengthException ex, WebRequest request)
+            throws UsernameBadLengthException {
+
+        System.out.println(ex.getMessage());
+        ErrorDetails errorDetails = new ErrorDetails(LocalDateTime.now(), ex.getMessage(),
+                request.getDescription(false));
+
+        return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
+
 }
