@@ -62,8 +62,9 @@ public class App {
 	}
 
 	@DeleteMapping(path = "{id}")
-    public void deleteUserById(@PathVariable("id") UUID userId) {
+    public ResponseEntity<String> deleteUserById(@PathVariable("id") UUID userId) {
         userService.deleteUserById(userId);
+		return new ResponseEntity<>("User was deleted successfully.", HttpStatus.OK);
 	}
 
 	//Update the user with the specify id
