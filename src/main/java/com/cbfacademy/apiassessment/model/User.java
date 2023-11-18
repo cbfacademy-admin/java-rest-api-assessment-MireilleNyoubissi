@@ -3,6 +3,9 @@ package com.cbfacademy.apiassessment.model;
 import java.io.Serializable;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -21,7 +24,8 @@ public class User implements Serializable{
     private int age;
 
     //adding parameterized constructor
-    public User(UUID id, String username, String email, int age) {
+    @JsonCreator
+    public User(@JsonProperty("userId") UUID id, @JsonProperty("username") String username, @JsonProperty("email")String email, @JsonProperty("age")int age) {
         this.userId = id;
         if (id == null) {
             this.userId = UUID.randomUUID();
