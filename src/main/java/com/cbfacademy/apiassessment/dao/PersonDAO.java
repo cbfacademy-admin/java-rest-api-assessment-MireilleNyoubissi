@@ -34,8 +34,14 @@ public interface PersonDAO {
      * Remove the object with specify id from file.
      * @param userId
      */
-
     void deleteAndSave(UUID userId);
+
+    /**
+     * Update the odject with the specify id.
+     * @param user
+     * @param userId
+     */
+    void updateAndSaveById(User user, UUID userId);
 
 
 }
