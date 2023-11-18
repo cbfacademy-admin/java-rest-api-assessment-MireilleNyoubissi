@@ -3,5 +3,27 @@
     "userId": "df6f59f3-328f-490c-baa6-c74be505cb0d",
     "email": "kirsty@gmail.com",
     "age": 22
+  },
+  {
+    "userId": "6502a237-2ecf-4a8c-a575-538df3b25301",
+    "username": "Ryan",
+    "email": "Ryan@gmail.com",
+    "age": 45
+  },
+  {
+    "userId": "3d0fd34f-801a-498e-b5b3-cd4bcecc4475",
+    "email": "Landry@gmail.com",
+    "age": 45
+  },
+  {
+    "userId": "c4fe01ef-8f2d-498e-aa92-8016ba3fdab5",
+    "email": "Landry@gmail.com",
+    "age": 45
+  },
+  {
+    "userId": "b39c74eb-6b55-4608-824f-902d9446adaa",
+    "username": "Mary",
+    "email": "Landry@gmail.com",
+    "age": 45
   }
 ]
