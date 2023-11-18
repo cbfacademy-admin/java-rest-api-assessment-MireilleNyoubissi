@@ -65,4 +65,22 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
         return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * Customized the error response structure for the user bad email exception to return a status code 400 bad request.
+     * @param ex
+     * @param request
+     * @return
+     * @throws BadEmailAddressException
+     */
+    @ExceptionHandler(value = BadEmailAddressException.class)
+    public final ResponseEntity<ErrorDetails> handleEmailAddressExceptionException(BadEmailAddressException ex, WebRequest request)
+            throws BadEmailAddressException {
+
+        System.out.println(ex.getMessage());
+        ErrorDetails errorDetails = new ErrorDetails(LocalDateTime.now(), ex.getMessage(),
+                request.getDescription(false));
+
+        return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
+
 }
