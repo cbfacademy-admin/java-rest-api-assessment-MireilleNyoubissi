@@ -69,8 +69,9 @@ public class App {
 
 	//Update the user with the specify id
 	@PutMapping(path = "{id}")
-    public void updateUserById(@RequestBody User user, @PathVariable("id") UUID userId) {
+    public ResponseEntity<String> updateUserById(@RequestBody User user, @PathVariable("id") UUID userId) {
         userService.updateUserById(user, userId);
+		return new ResponseEntity<>("User has been updated successfully.", HttpStatus.OK);
     }
 
 }
