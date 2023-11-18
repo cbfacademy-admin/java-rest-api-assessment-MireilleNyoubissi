@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.function.Predicate;
 
 import org.springframework.stereotype.Repository;
 
@@ -78,6 +79,29 @@ public class UserDataAccess implements PersonDAO {
         return dbUser.stream()
                 .filter(user -> user.getUserId().equals(userId))
                 .findFirst();
+    }
+
+
+    @Override
+    public void deleteAndSave(UUID userId) {
+        List<User> updateListOfUsers = readFile();
+
+        try (
+            FileWriter writer = new FileWriter(file.getAbsolutePath());
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+            ) {
+            
+                Predicate<? super User> predicate = user -> user.getUserId().equals(userId);
+
+                updateListOfUsers.removeIf(predicate);
+        
+
+                Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                gson.toJson(updateListOfUsers, bufferedWriter);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
     }
 
     

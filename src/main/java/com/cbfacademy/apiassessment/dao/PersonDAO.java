@@ -30,4 +30,11 @@ public interface PersonDAO {
      */
     Optional<User> readFileById(UUID userId);
 
+    /**
+     * Remove the object with specify id from file.
+     * @param userId
+     */
+
+    void deleteAndSave(UUID userId);
+
 }
