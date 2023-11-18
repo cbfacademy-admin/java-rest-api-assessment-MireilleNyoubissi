@@ -27,7 +27,11 @@ import com.google.gson.stream.JsonReader;
 public class UserDataAccess implements PersonDAO {
 
 
-
+        /**
+         * Get file or create file if file doesn't exist.
+         * @return file
+         * @throws IOException
+         */
         public File getLocaFile() throws IOException {
             File file = new File("src/main/resources/dbUsersFile.json");
             if(!file.exists()){
