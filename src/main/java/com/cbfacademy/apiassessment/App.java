@@ -2,6 +2,8 @@ package com.cbfacademy.apiassessment;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,6 +55,10 @@ public class App {
 		return userService.getUserById(userId);
 	}
 
+	@DeleteMapping(path = "{id}")
+    public void deleteUserById(@PathVariable("id") UUID userId) {
+        userService.deleteUserById(userId);
+	}
 
 
 
