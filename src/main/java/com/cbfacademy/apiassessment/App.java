@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cbfacademy.apiassessment.service.impl.UserService;
+
+import jakarta.validation.Valid;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -43,7 +46,7 @@ public class App {
 
 	//Create a user via a post request
 	@PostMapping
-	public ResponseEntity<User> createUser(@RequestBody NewUserDto user) {
+	public ResponseEntity<User> createUser(@Valid @RequestBody NewUserDto user) {
 		User newUser = new User(null, user.username, user.email, user.age);
         userService.createUser(newUser);
 		return new ResponseEntity<>(newUser, HttpStatus.CREATED);
@@ -62,14 +65,14 @@ public class App {
 	}
 
 	@DeleteMapping(path = "{id}")
-    public ResponseEntity<String> deleteUserById(@PathVariable("id") UUID userId) {
+    public ResponseEntity<String> deleteUserById(@Valid @PathVariable("id") UUID userId) {
         userService.deleteUserById(userId);
 		return new ResponseEntity<>("User was deleted successfully.", HttpStatus.OK);
 	}
 
 	//Update the user with the specify id
 	@PutMapping(path = "{id}")
-    public ResponseEntity<String> updateUserById(@RequestBody User user, @PathVariable("id") UUID userId) {
+    public ResponseEntity<String> updateUserById(@Valid @RequestBody User user, @PathVariable("id") UUID userId) {
         userService.updateUserById(user, userId);
 		return new ResponseEntity<>("User has been updated successfully.", HttpStatus.OK);
     }
