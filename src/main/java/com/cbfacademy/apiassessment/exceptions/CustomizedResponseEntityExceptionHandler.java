@@ -16,11 +16,34 @@ import com.cbfacademy.apiassessment.model.ErrorDetails;
  */
 @ControllerAdvice //Applicable to all controller
 public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
-    
+    /**
+     * handle all exceptions.
+     * @param ex
+     * @param request
+     * @return
+     * @throws Exception
+     */
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<ErrorDetails> handleAllExceptions(Exception ex, WebRequest request) throws Exception {
 
         ErrorDetails errorDetails = new ErrorDetails(LocalDateTime.now(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    /**
+     * Customized the error response structure for the user not found exception to return a status code 404 not found. 
+     * @param ex
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    @ExceptionHandler(value = UserNotFoundException.class)
+    public final ResponseEntity<ErrorDetails> handleUserNotFoundException(Exception ex, WebRequest request)
+            throws Exception {
+
+        ErrorDetails errorDetails = new ErrorDetails(LocalDateTime.now(), ex.getMessage(),
+                request.getDescription(false));
+
+        return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.NOT_FOUND);
     }
 }
