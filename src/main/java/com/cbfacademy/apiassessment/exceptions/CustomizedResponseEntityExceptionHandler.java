@@ -35,15 +35,34 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
      * @param ex
      * @param request
      * @return
-     * @throws Exception
+     * @throws UserNotFoundException
      */
     @ExceptionHandler(value = UserNotFoundException.class)
-    public final ResponseEntity<ErrorDetails> handleUserNotFoundException(Exception ex, WebRequest request)
-            throws Exception {
+    public final ResponseEntity<ErrorDetails> handleUserNotFoundException(UserNotFoundException ex, WebRequest request)
+            throws UserNotFoundException {
 
         ErrorDetails errorDetails = new ErrorDetails(LocalDateTime.now(), ex.getMessage(),
                 request.getDescription(false));
 
         return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.NOT_FOUND);
     }
+
+    /**
+     * Customized the error response structure for the user age bad range exception to return a status code 400 bad request.
+     * @param ex
+     * @param request
+     * @return
+     * @throws AgeBadRangeException
+     */
+    @ExceptionHandler(value = AgeBadRangeException.class)
+    public final ResponseEntity<ErrorDetails> handleAgeBadRangeException(AgeBadRangeException ex, WebRequest request)
+            throws AgeBadRangeException {
+
+        System.out.println(ex.getMessage());
+        ErrorDetails errorDetails = new ErrorDetails(LocalDateTime.now(), ex.getMessage(),
+                request.getDescription(false));
+
+        return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
+
 }
