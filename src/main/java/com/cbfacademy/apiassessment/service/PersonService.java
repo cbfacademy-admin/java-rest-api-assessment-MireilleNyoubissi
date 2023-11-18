@@ -36,4 +36,11 @@ public interface PersonService {
      */
     void deleteUserById(UUID userId);
 
+    /**
+     * Update the user with the specify id
+     * @param user
+     * @param userId
+     */
+    void updateUserById(User user, UUID userId);
+
 }

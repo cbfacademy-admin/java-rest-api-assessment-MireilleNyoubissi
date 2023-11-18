@@ -42,5 +42,10 @@ public class UserService implements PersonService {
     public void deleteUserById(UUID userId) {
         personDAO.deleteAndSave(userId);
     }
+
+    @Override
+    public void updateUserById(User user, UUID userId) {
+        personDAO.updateAndSaveById(user, userId);
+    }
     
 }
