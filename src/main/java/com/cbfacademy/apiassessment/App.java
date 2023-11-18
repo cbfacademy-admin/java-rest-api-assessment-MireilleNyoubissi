@@ -2,6 +2,7 @@ package com.cbfacademy.apiassessment;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,8 @@ import com.cbfacademy.apiassessment.service.impl.UserService;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
+import com.cbfacademy.apiassessment.dto.NewUserDto;
 import com.cbfacademy.apiassessment.model.User;
 
 @RequestMapping("api/user")
@@ -40,8 +43,10 @@ public class App {
 
 	//Create a user via a post request
 	@PostMapping
-	public void createUser(@RequestBody User user) {
-        userService.createUser(user);
+	public ResponseEntity<User> createUser(@RequestBody NewUserDto user) {
+		User newUser = new User(null, user.username, user.email, user.age);
+        userService.createUser(newUser);
+		return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
 
 	//Get all users 
