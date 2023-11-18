@@ -37,5 +37,10 @@ public class UserService implements PersonService {
     public Optional<User> getUserById(UUID userId) {
         return personDAO.readFileById(userId);
     }
+
+    @Override
+    public void deleteUserById(UUID userId) {
+        personDAO.deleteAndSave(userId);
+    }
     
 }
