@@ -30,4 +30,10 @@ public interface PersonService {
      */
     Optional <User> getUserById(UUID userId);
 
+    /**
+     * Delete user by id
+     * @param userId
+     */
+    void deleteUserById(UUID userId);
+
 }
