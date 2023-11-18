@@ -50,6 +50,7 @@ public class App {
 	//Create a user via a post request
 	@PostMapping
 	public ResponseEntity<User> createUser(@Valid @RequestBody NewUserDto user) {
+
 		if (user.username.length() > 100 || user.username.length() < 2)
             throw new UsernameBadLengthException();
         if (user.age < 18 || user.age > 60)
@@ -87,8 +88,17 @@ public class App {
 
 	//Update the user with the specify id
 	@PutMapping(path = "{id}")
-    public ResponseEntity<String> updateUserById(@Valid @RequestBody User user, @PathVariable("id") UUID userId) {
-        userService.updateUserById(user, userId);
+    public ResponseEntity<String> updateUserById(@Valid @RequestBody NewUserDto user, @PathVariable("id") UUID userId) {
+
+		if (user.username.length() > 100 || user.username.length() < 2)
+            throw new UsernameBadLengthException();
+        if (user.age < 18 || user.age > 60)
+            throw new AgeBadRangeException();
+        if (!user.email.contains("@") || !user.email.contains("."))
+            throw new BadEmailAddressException();
+		User newUser = new User(null, user.username, user.email, user.age);
+		
+        userService.updateUserById(newUser, userId);
 		return new ResponseEntity<>("User has been updated successfully.", HttpStatus.OK);
     }
 
