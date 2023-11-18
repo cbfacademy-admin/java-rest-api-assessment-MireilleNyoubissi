@@ -26,8 +26,20 @@ import com.google.gson.stream.JsonReader;
 @Repository("userDAO") // need to be instantiated as a beans
 public class UserDataAccess implements PersonDAO {
 
-    File file = new File("src/main/resources/dbUsersFile.json");
 
+
+        public File getLocaFile() throws IOException {
+            File file = new File("src/main/resources/dbUsersFile.json");
+            if(!file.exists()){
+                boolean flag = file.getAbsoluteFile().createNewFile();
+                if(flag) {
+                    System.out.println("file got created");
+                } else {
+                    System.out.println("file already exist");
+                }
+            }
+            return file;
+        }
 
     @Override
     public List<User> readFile() {
@@ -38,7 +50,7 @@ public class UserDataAccess implements PersonDAO {
         Type listType = new TypeToken<List<User>>() {
         }.getType();
         
-        try (JsonReader reader = new JsonReader(new FileReader(file.getAbsolutePath()));) {
+        try (JsonReader reader = new JsonReader(new FileReader(getLocaFile().getAbsolutePath()));) {
             System.out.println(reader.toString());
             dbUser = gson.fromJson(reader, listType);
         } catch (Exception e) {
@@ -55,7 +67,7 @@ public class UserDataAccess implements PersonDAO {
         List<User> readUserFromFile = readFile();
 
         try (
-            FileWriter writer = new FileWriter(file.getAbsolutePath());
+            FileWriter writer = new FileWriter(getLocaFile().getAbsolutePath());
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
             ) {
             if (readUserFromFile != null) {
@@ -87,7 +99,7 @@ public class UserDataAccess implements PersonDAO {
         List<User> updateListOfUsers = readFile();
 
         try (
-            FileWriter writer = new FileWriter(file.getAbsolutePath());
+            FileWriter writer = new FileWriter(getLocaFile().getAbsolutePath());
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
             ) {
             
@@ -111,7 +123,7 @@ public class UserDataAccess implements PersonDAO {
         List<User> updateListOfUsers = new ArrayList<>();
 
         try (
-            FileWriter writer = new FileWriter(file.getAbsolutePath());
+            FileWriter writer = new FileWriter(getLocaFile().getAbsolutePath());
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
             ) {
 
