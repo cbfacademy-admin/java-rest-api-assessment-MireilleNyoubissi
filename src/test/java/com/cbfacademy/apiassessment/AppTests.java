@@ -79,7 +79,6 @@ class AppTests {
 
 		ResponseEntity<User[]> response = restTemplate.getForEntity("/api/user", User[].class);
 		User[] responseUsers = response.getBody();
-
 		assertEquals(HttpStatus.OK, response.getStatusCode());
 		assertNotNull(responseUsers);
 		assertTrue(users.size() <= responseUsers.length);
@@ -110,6 +109,21 @@ class AppTests {
 
 		assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
 	}
+
+	@Test
+	void testUpdateUser() {
+		User user = new User(null, "John", "john@gmail.com", 35);
+		ResponseEntity<User> createResponse = restTemplate.postForEntity("/api/user", user, User.class);
+
+		User createdUser = createResponse.getBody();
+
+		restTemplate.put("/api/user" + createdUser.getUserId(), createdUser);
+		ResponseEntity<User> response = restTemplate.getForEntity("/api/user/" + createdUser.getUserId(),User.class);
+
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+	}
+
+	
 }
 
 
