@@ -43,5 +43,12 @@ public interface PersonDAO {
      */
     void updateAndSaveById(User user, UUID userId);
 
+    /**
+     * Search the specified String element in the JSON list and return the element if found
+     * @param key
+     * @return user
+     */
+    List<User> search(String key);
+
 
 }
