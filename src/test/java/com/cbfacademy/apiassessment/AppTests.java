@@ -7,11 +7,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.context.annotation.Description;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.net.URL;
+import com.cbfacademy.apiassessment.model.User;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.net.URL;
 
 @SpringBootTest(classes = App.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class AppTests {
@@ -26,7 +29,7 @@ class AppTests {
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		this.base = new URL("http://localhost:" + port + "/greeting");
+		this.base = new URL("http://localhost:" + port + "/api/user");
 	}
 
 	// @Test
@@ -46,4 +49,16 @@ class AppTests {
 	// 	assertEquals(200, response.getStatusCode().value());
 	// 	assertEquals("Hello John", response.getBody());
 	// }
+
+	@Test
+	void testCreateUser() {
+		User user = new User(null, "John", "john@gmail.com", 35);
+		ResponseEntity<User> response = restTemplate.postForEntity("/api/user", user, User.class);
+
+		assertEquals(HttpStatus.CREATED, response.getStatusCode());
+		assertNotNull(response.getBody());
+		assertNotNull(response.getBody().getUserId());
+	}
 }
+
+
