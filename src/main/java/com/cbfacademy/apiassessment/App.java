@@ -80,6 +80,14 @@ public class App {
 		return ResponseEntity.ok(user);
 	}
 
+	//search user by
+	@GetMapping(path = "search/{key}")
+    public ResponseEntity<List<User>> searchUser(@PathVariable("key") String key) {
+        return ResponseEntity.ok(userService.searchUser(key));
+
+    }
+
+
 	@DeleteMapping(path = "{id}")
     public ResponseEntity<String> deleteUserById(@Valid @PathVariable("id") UUID userId) {
         userService.deleteUserById(userId);

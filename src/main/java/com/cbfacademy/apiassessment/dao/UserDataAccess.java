@@ -149,5 +149,14 @@ public class UserDataAccess implements PersonDAO {
             }
     }
 
+    @Override
+    public List<User> search(String key) {
+        List<User> dbUser = readFile();
+
+        return dbUser.stream()
+                .filter(user -> user.getUsername().contains(key) || user.getEmail().contains(key))
+                .toList();
+    }
+
     
 }
