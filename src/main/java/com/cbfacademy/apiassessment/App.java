@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cbfacademy.apiassessment.service.impl.UserService;
@@ -23,6 +22,10 @@ import java.util.Optional;
 import java.util.UUID;
 
 import com.cbfacademy.apiassessment.dto.NewUserDto;
+import com.cbfacademy.apiassessment.exceptions.AgeBadRangeException;
+import com.cbfacademy.apiassessment.exceptions.BadEmailAddressException;
+import com.cbfacademy.apiassessment.exceptions.UserNotFoundException;
+import com.cbfacademy.apiassessment.exceptions.UsernameBadLengthException;
 import com.cbfacademy.apiassessment.model.User;
 
 @RequestMapping("api/user")
@@ -47,6 +50,14 @@ public class App {
 	//Create a user via a post request
 	@PostMapping
 	public ResponseEntity<User> createUser(@Valid @RequestBody NewUserDto user) {
+
+		if (user.username.length() > 100 || user.username.length() < 2)
+            throw new UsernameBadLengthException();
+        if (user.age < 18 || user.age > 60)
+            throw new AgeBadRangeException();
+        if (!user.email.contains("@") || !user.email.contains("."))
+            throw new BadEmailAddressException();
+
 		User newUser = new User(null, user.username, user.email, user.age);
         userService.createUser(newUser);
 		return new ResponseEntity<>(newUser, HttpStatus.CREATED);
@@ -61,7 +72,12 @@ public class App {
 	//Get a user by its id
 	@GetMapping(path = "{id}")
 	public ResponseEntity<Optional<User>> getUserById(@PathVariable("id") UUID userId) {
-		return ResponseEntity.ok(userService.getUserById(userId));
+		Optional<User> user = userService.getUserById(userId);
+		System.out.println(user.isPresent());
+        if (!user.isPresent()) {
+            throw new UserNotFoundException(userId.toString());
+        }
+		return ResponseEntity.ok(user);
 	}
 
 	@DeleteMapping(path = "{id}")
@@ -72,8 +88,17 @@ public class App {
 
 	//Update the user with the specify id
 	@PutMapping(path = "{id}")
-    public ResponseEntity<String> updateUserById(@Valid @RequestBody User user, @PathVariable("id") UUID userId) {
-        userService.updateUserById(user, userId);
+    public ResponseEntity<String> updateUserById(@Valid @RequestBody NewUserDto user, @PathVariable("id") UUID userId) {
+
+		if (user.username.length() > 100 || user.username.length() < 2)
+            throw new UsernameBadLengthException();
+        if (user.age < 18 || user.age > 60)
+            throw new AgeBadRangeException();
+        if (!user.email.contains("@") || !user.email.contains("."))
+            throw new BadEmailAddressException();
+		User newUser = new User(null, user.username, user.email, user.age);
+		
+        userService.updateUserById(newUser, userId);
 		return new ResponseEntity<>("User has been updated successfully.", HttpStatus.OK);
     }
 
