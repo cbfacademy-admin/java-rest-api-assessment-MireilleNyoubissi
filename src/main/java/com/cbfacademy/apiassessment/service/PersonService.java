@@ -42,5 +42,12 @@ public interface PersonService {
      * @param userId
      */
     void updateUserById(User user, UUID userId);
+    
+    /**
+     * Search the list of users and return the user with the specify key element.
+     * @param key
+     * @return user
+     */
+    List<User> searchUser(String key);
 
 }
