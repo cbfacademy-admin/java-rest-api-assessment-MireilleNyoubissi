@@ -14,7 +14,10 @@ import com.cbfacademy.apiassessment.model.User;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.math.BigDecimal;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootTest(classes = App.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class AppTests {
@@ -58,6 +61,28 @@ class AppTests {
 		assertEquals(HttpStatus.CREATED, response.getStatusCode());
 		assertNotNull(response.getBody());
 		assertNotNull(response.getBody().getUserId());
+	}
+
+	@Test
+	void testGetAllUsers() {
+		List<User> users = new ArrayList<>() {
+			{
+				add(new User(null, "John", "john@gmail.com", 35));
+				add(new User(null, "Charly", "charly@gmail.com", 25));
+				add(new User(null, "Mary", "mary@gmail.com", 20));
+			}
+		};
+
+		for (User user : users) {
+			restTemplate.postForEntity("/api/user", user, User.class);
+		}
+
+		ResponseEntity<User[]> response = restTemplate.getForEntity("/api/user", User[].class);
+		User[] responseUsers = response.getBody();
+
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+		assertNotNull(responseUsers);
+		assertTrue(users.size() <= responseUsers.length);
 	}
 }
 
