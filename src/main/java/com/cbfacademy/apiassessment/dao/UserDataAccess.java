@@ -124,7 +124,9 @@ public class UserDataAccess implements PersonDAO {
     @Override
     public void updateAndSaveById(User user, UUID userId) {
         List<User> readUserFromFile = readFile();
+        Optional<User>  userFromFile = readFileById(userId);
         List<User> updateListOfUsers = new ArrayList<>();
+        
 
         try (
             FileWriter writer = new FileWriter(getLocaFile().getAbsolutePath());
@@ -139,7 +141,6 @@ public class UserDataAccess implements PersonDAO {
 
                 updateListOfUsers.removeIf(predicate);
                 updateListOfUsers.add(user);
-        
 
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
                 gson.toJson(updateListOfUsers, bufferedWriter);

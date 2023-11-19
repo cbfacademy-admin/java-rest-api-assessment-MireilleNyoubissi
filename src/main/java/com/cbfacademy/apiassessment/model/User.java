@@ -36,7 +36,7 @@ public class User implements Serializable{
     }
 
     //adding getters
-   
+
     public UUID getUserId() {
         return userId;
     }
@@ -52,5 +52,24 @@ public class User implements Serializable{
     public int getAge() {
         return age;
     }
+
+    //adding setters
+    public void setUserId(UUID userId) {
+        this.userId = userId;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+
 
 }
