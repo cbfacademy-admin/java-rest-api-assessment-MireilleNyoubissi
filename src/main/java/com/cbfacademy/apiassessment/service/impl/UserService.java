@@ -47,5 +47,10 @@ public class UserService implements PersonService {
     public void updateUserById(User user, UUID userId) {
         personDAO.updateAndSaveById(user, userId);
     }
+
+    @Override
+    public List<User> searchUser(String key) {
+        return personDAO.search(key);
+    }
     
 }
