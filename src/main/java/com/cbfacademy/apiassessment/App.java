@@ -82,8 +82,8 @@ public class App {
 
 	//search user by
 	@GetMapping(path = "search/{key}")
-    public List<User> searchUser(@PathVariable("key") String key) {
-        return userService.searchUser(key);
+    public ResponseEntity<List<User>> searchUser(@PathVariable("key") String key) {
+        return ResponseEntity.ok(userService.searchUser(key));
 
     }
 
