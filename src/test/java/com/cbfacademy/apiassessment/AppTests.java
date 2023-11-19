@@ -97,6 +97,19 @@ class AppTests {
 		assertNotNull(response.getBody());
 		assertEquals(createdUser.getUserId(), response.getBody().getUserId());
 	}
+
+	@Test
+	void testDeleteUser() {
+		User user = new User(null, "Carla", "carla@gmail.com", 46);
+		ResponseEntity<User> createResponse = restTemplate.postForEntity("/api/user", user, User.class);
+
+		User createdUser = createResponse.getBody();
+		restTemplate.delete("/api/user" + createdUser.getUserId());
+
+		ResponseEntity<User> response = restTemplate.getForEntity("/api/user" + createdUser.getUserId(), User.class);
+
+		assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+	}
 }
 
 
