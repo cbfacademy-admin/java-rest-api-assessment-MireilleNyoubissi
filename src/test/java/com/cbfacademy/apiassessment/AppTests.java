@@ -84,6 +84,19 @@ class AppTests {
 		assertNotNull(responseUsers);
 		assertTrue(users.size() <= responseUsers.length);
 	}
+
+	@Test
+	void testGetUserById() {
+		User user = new User(null, "Cyprian", "cyprian@gmail.com", 56);
+		ResponseEntity<User> createResponse = restTemplate.postForEntity("/api/user", user, User.class);
+
+		User createdUser = createResponse.getBody();
+		ResponseEntity<User> response = restTemplate.getForEntity("/api/user/" + createdUser.getUserId(), User.class);
+
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+		assertNotNull(response.getBody());
+		assertEquals(createdUser.getUserId(), response.getBody().getUserId());
+	}
 }
 
 
